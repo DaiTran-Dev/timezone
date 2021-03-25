@@ -17,6 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::group(['prefix'=>'admin','namespace'=>'BackEnd'],function (){
+    Route::get('','AdminController@index')->name('admin.dashboard');
+    Route::get('/file','AdminController@file')->name('admin.file');
     Route::resources([
         'products'=>'ProductController'
     ]);

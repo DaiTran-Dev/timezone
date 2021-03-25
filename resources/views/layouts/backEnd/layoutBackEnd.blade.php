@@ -79,46 +79,32 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
             <li class="nav-header pl-3">Statistical</li>
+              <?php $menu = config('menu'); ?>
+          @foreach($menu as $m)
             <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-tachometer-alt"></i>
-                <p>
-                  Dashboard
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Dashboard Statistical</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-          <li class="nav-item has-treeview{{ Route::is('products.create') ? ' menu-open' : '' }}">
-              <a href="#" class="nav-link {{ Route::is('products.index') ? ' active' : '' }}">
-                  <i class="nav-icon fas fa-tachometer-alt"></i>
+              <a href="{{ route($m['route'])}}" class="nav-link {{ Route::is($m['route']) ? ' active' : '' }}">
+                  <i class="nav-icon {{$m['icon']}}"></i>
                   <p>
-                      Dashboard
+                      {{$m['label']}}
+                      @if(isset($m['items']))
                       <i class="right fas fa-angle-left"></i>
+                      @endif
                   </p>
               </a>
+                @if(isset($m['items']))
               <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                      <a href="{{route('products.index')}}" class="nav-link {{ Route::is('products.index') ? ' active' : '' }}">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>List Product</p>
-                      </a>
-                  </li>
-                  <li class="nav-item">
-                      <a href="{{route('products.create')}}" class="nav-link {{ Route::is('products.create') ? ' active' : '' }}">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>Create Product</p>
-                      </a>
-                  </li>
+                  @foreach($m['items'] as $item)
+                      <li class="nav-item">
+                          <a href="{{route($item['route'])}}" class="nav-link {{ Route::is($item['route']) ? ' active' : '' }}">
+                              <i class="far fa-circle nav-icon"></i>
+                              <p>{{$item['label']}}</p>
+                          </a>
+                      </li>
+                  @endforeach
               </ul>
+                @endif
           </li>
+          @endforeach
           </ul>
         </nav>
         <!-- /.sidebar-menu -->
