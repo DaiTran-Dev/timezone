@@ -2,20 +2,24 @@
 
 namespace App\Http\Controllers\BackEnd;
 
+use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mapper\ProductMapper;
 
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     * @param  \App\Models\Product $product
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Product $product)
     {
-        //
+        return view('backEnd.product.index',[
+            'products'=>$product->get()
+        ]);
     }
 
     /**
@@ -32,11 +36,12 @@ class ProductController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request,Product $product)
     {
-        //
+        $product->add(ProductMapper::mapData());
     }
 
     /**
@@ -58,7 +63,9 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return view('backEnd.product.add',[
+            'product'=>$product
+        ]);
     }
 
     /**

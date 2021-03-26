@@ -19,6 +19,8 @@ class CreateProductTable extends Migration
             $table->float('price');
             $table->float('priceSale')->nullable();
             $table->integer('quantity');
+            $table->text('thumbnail')->nullable();
+            $table->text('listImage')->nullable();
             $table->text('description')->nullable();
             $table->string('createBy')->nullable();
             $table->string('modifiedBy')->nullable();

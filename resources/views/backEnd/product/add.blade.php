@@ -14,7 +14,13 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form role="form" method="POST" action="{{route('products.store')}}" enctype="multipart/form-data">
+               @if(isset($product->id))
+                    <form role="form" method="POST" action="{{route('products.store')}}" enctype="multipart/form-data">
+                @else
+                    <form role="form" method="PUT" action="{{route('products.update')}}" enctype="multipart/form-data">
+                        <input type="hidden" name="id" value="{{$product->id}}}">
+                        @method('PUT')
+               @endif
                     @csrf
                     <div class="card-body">
                         <div class="row">
@@ -29,7 +35,7 @@
                                                 <label for="">Product Name</label>
                                                 @enderror
                                                 <input type="text" class="form-control " placeholder="Enter Title..."
-                                                       name="name" value="{{old('name')}}">
+                                                       name="name" value="{{$product->name}}">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -37,8 +43,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     @error('price')
-                                                    <label class="col-form-label" for="inputError" style="color: red"><i
-                                                            class="far fa-times-circle"></i>{{$message}}</label>
+                                                    <label class="col-form-label" for="inputError" style="color: red">{{$message}}</label>
                                                     @else
                                                         <label for="">Enter Price</label>
                                                         @enderror
@@ -51,8 +56,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     @error('priceSale')
-                                                    <label class="col-form-label" for="inputError" style="color: red"><i
-                                                            class="far fa-times-circle"></i>{{$message}}</label>
+                                                    <label class="col-form-label" for="inputError" style="color: red">{{$message}}</label>
                                                     @else
                                                         <label for="">Enter Price Sale</label>
                                                         @enderror
@@ -63,15 +67,15 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    @error('priceSale')
+                                                    @error('quantity')
                                                     <label class="col-form-label" for="inputError" style="color: red"><i
                                                             class="far fa-times-circle"></i>{{$message}}</label>
                                                     @else
-                                                        <label for="">Enter Price Sale</label>
+                                                        <label for="">Enter Quantity</label>
                                                         @enderror
                                                         <input type="text" class="form-control "
-                                                               placeholder="Enter Price Sale..." name="priceSale"
-                                                               value="{{old('priceSale')}}">
+                                                               placeholder="Enter Quantity..." name="quantity"
+                                                               value="{{old('quantity')}}">
                                                 </div>
                                             </div>
                                         </div>
@@ -92,7 +96,7 @@
                                             <div class="row">
                                                 <div class="col-md-11">
                                                     <input type="text" class="form-control"
-                                                           placeholder="Choose Image" name="image" id="image"
+                                                           placeholder="Choose Image" name="thumbnail" id="thumbnail"
                                                     >
                                                 </div>
                                                 <div class="col-md-1">
@@ -113,7 +117,7 @@
                                             <div class="row">
                                                 <div class="col-md-11">
                                                     <input type="text" class="form-control"
-                                                           placeholder="Choose Image" name="image" id="imageList"
+                                                           placeholder="Choose Image" name="listImage" id="listImage"
                                                     >
                                                 </div>
                                                 <div class="col-md-1">
@@ -154,7 +158,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <iframe src="{{url('public/file/dialog.php?field_id=image')}}" style="width: 100%; height: 500px;overflow-y: auto;border: none"></iframe>
+                    <iframe src="{{url('public/file/dialog.php?field_id=thumbnail')}}" style="width: 100%; height: 500px;overflow-y: auto;border: none"></iframe>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -172,7 +176,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <iframe src="{{url('public/file/dialog.php?field_id=imageList')}}" style="width: 100%; height: 500px;overflow-y: auto;border: none"></iframe>
+                    <iframe src="{{url('public/file/dialog.php?field_id=listImage')}}" style="width: 100%; height: 500px;overflow-y: auto;border: none"></iframe>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
